@@ -1,5 +1,6 @@
 from pathlib import Path
 import environ
+import django_heroku
 
 env = environ.Env(
     DEBUG=(bool, False)
@@ -143,3 +144,7 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
 CRISPY_TEMPLATE_PACK = 'tailwind'
 
 TAILWIND_APP_NAME = 'theme'
+
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
