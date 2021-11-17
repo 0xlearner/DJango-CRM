@@ -43,6 +43,7 @@ class DashboardView(OrganisorAndLoginRequiredMixin, generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(DashboardView, self).get_context_data(**kwargs)
+
         user = self.request.user
 
         # How many leads we have in total
@@ -52,9 +53,9 @@ class DashboardView(OrganisorAndLoginRequiredMixin, generic.TemplateView):
         thirty_days_ago = datetime.date.today() - datetime.timedelta(days=30)
 
         total_in_past30 = Lead.objects.filter(
-            organisation=user.userprofile, 
+            organisation=user.userprofile,
             date_added__gte=thirty_days_ago
-            ).count()
+        ).count()
 
         # How many converted leads in the last 30 days
         converted_category = Category.objects.get(name="Converted")
@@ -62,14 +63,13 @@ class DashboardView(OrganisorAndLoginRequiredMixin, generic.TemplateView):
             organisation=user.userprofile,
             category=converted_category,
             converted_date__gte=thirty_days_ago
-            ).count()
+        ).count()
 
         context.update({
             "total_lead_count": total_lead_count,
             "total_in_past30": total_in_past30,
             "converted_in_past30": converted_in_past30
         })
-
         return context
 
 
