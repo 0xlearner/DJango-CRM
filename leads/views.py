@@ -58,7 +58,10 @@ class DashboardView(OrganisorAndLoginRequiredMixin, generic.TemplateView):
         ).count()
 
         # How many converted leads in the last 30 days
-        converted_category = Category.objects.get(name="Converted")
+        try:
+            converted_category = Category.objects.get(name="Converted")
+        except Category.DoesNotExist:
+            converted_category = None
         converted_in_past30 = Lead.objects.filter(
             organisation=user.userprofile,
             category=converted_category,
