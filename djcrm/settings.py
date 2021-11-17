@@ -1,6 +1,6 @@
 from pathlib import Path
 import environ
-import django_heroku
+import django_on_heroku
 
 env = environ.Env(
     DEBUG=(bool, False)
@@ -147,4 +147,4 @@ TAILWIND_APP_NAME = 'theme'
 
 
 # Activate Django-Heroku.
-django_heroku.settings(locals())
+django_on_heroku.settings(locals())
